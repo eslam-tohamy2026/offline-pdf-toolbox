@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Offline PDF Toolbox</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <img src="../icons/icon48.png" alt="" class="brand-icon">
+    <div>
+      <h1>Offline PDF Toolbox</h1>
+      <p class="tagline">Merge, split, rotate &amp; reorder PDFs — 100% offline. Your files never leave your computer.</p>
+    </div>
+  </div>
+  <div class="top-actions">
+    <span id="counts" class="counts">No files yet</span>
+    <button id="select-all" class="btn btn-ghost" disabled>Select all</button>
+    <button id="clear-selection" class="btn btn-ghost" disabled>Clear selection</button>
+    <button id="download" class="btn btn-primary" disabled>Download</button>
+    <button id="clear-all" class="btn btn-danger-ghost" disabled>Clear all</button>
+  </div>
+</header>
+
+<main class="layout">
+  <aside class="files-panel">
+    <div class="panel-head">
+      <h2>Files</h2>
+      <button id="add-files" class="btn btn-ghost btn-small">+ Add PDFs</button>
+    </div>
+    <ul id="file-list" class="file-list"></ul>
+    <p class="hint">Tip: drag pages to reorder them. Tick pages, then
+      Download, to save only the ticked pages.</p>
+    <p class="privacy">No upload. No account. No tracking.
+      Everything happens in this tab.</p>
+  </aside>
+
+  <section class="pages-panel">
+    <div id="dropzone" class="dropzone">
+      <p class="dropzone-big">Drop PDFs here</p>
+      <p class="dropzone-small">or</p>
+      <button id="add-files-big" class="btn btn-primary">Choose PDF files</button>
+      <p class="dropzone-small">PDF files only. Nothing is uploaded.</p>
+    </div>
+    <div id="page-grid" class="page-grid" aria-label="Pages"></div>
+  </section>
+</main>
+
+<footer class="statusbar">
+  <span id="status">Ready. Add a PDF to begin.</span>
+  <span id="error" class="error" role="alert"></span>
+</footer>
+
+<input type="file" id="file-input" accept="application/pdf,.pdf" multiple hidden>
+
+<script src="vendor/pdf-lib.min.js"></script>
+<script src="vendor/pdf.min.js"></script>
+<script src="pdfops.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
