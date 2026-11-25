@@ -15,7 +15,7 @@ Every popular PDF tool either uploads your files to a server (iLovePDF, Smallpdf
 - **Zero permissions** — the extension asks for nothing: no access to your browsing, no host permissions.
 - **Visual pages** — see every page as a thumbnail and drag it where it belongs.
 
-## Install (load unpacked — Chrome Web Store coming later)
+## Install (load unpacked)
 
 ```bash
 git clone https://github.com/eslam-tohamy2026/offline-pdf-toolbox.git
