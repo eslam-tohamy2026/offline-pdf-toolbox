@@ -1,0 +1,18 @@
+{
+  "name": "offline-pdf-toolbox",
+  "version": "1.0.0",
+  "description": "Merge, split, rotate & reorder PDFs — 100% offline browser extension (Manifest V3).",
+  "scripts": {
+    "test": "node --test tests/test_pdfops.mjs tests/test_app_smoke.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "jsdom": "^31.0.1"
+  },
+  "dependencies": {
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^3.11.174"
+  }
+}
