@@ -17,32 +17,64 @@
   </div>
   <div class="top-actions">
     <span id="counts" class="counts">No files yet</span>
+    <button id="undo" class="btn btn-ghost" title="Undo (Ctrl+Z)" disabled>↩ Undo</button>
+    <button id="redo" class="btn btn-ghost" title="Redo (Ctrl+Shift+Z)" disabled>↪ Redo</button>
     <button id="select-all" class="btn btn-ghost" disabled>Select all</button>
     <button id="clear-selection" class="btn btn-ghost" disabled>Clear selection</button>
     <button id="download" class="btn btn-primary" disabled>Download</button>
+    <button id="download-split" class="btn btn-ghost" title="Download every page as its own PDF file" disabled>Split files</button>
     <button id="clear-all" class="btn btn-danger-ghost" disabled>Clear all</button>
   </div>
 </header>
+
+<div id="selection-bar" class="selection-bar" hidden>
+  <span id="selection-label"></span>
+  <button id="sel-rotate-left" class="btn btn-ghost btn-small" title="Rotate selected left (Shift+R)">↺ Rotate</button>
+  <button id="sel-rotate-right" class="btn btn-ghost btn-small" title="Rotate selected right (R)">Rotate ↻</button>
+  <button id="sel-duplicate" class="btn btn-ghost btn-small" title="Duplicate selected pages">⧉ Duplicate</button>
+  <button id="sel-delete" class="btn btn-ghost btn-small" title="Delete selected pages (Delete)">Delete</button>
+  <button id="sel-clear" class="btn btn-ghost btn-small">Clear selection</button>
+</div>
 
 <main class="layout">
   <aside class="files-panel">
     <div class="panel-head">
       <h2>Files</h2>
-      <button id="add-files" class="btn btn-ghost btn-small">+ Add PDFs</button>
+      <button id="add-files" class="btn btn-ghost btn-small">+ Add files</button>
     </div>
     <ul id="file-list" class="file-list"></ul>
     <p class="hint">Tip: drag pages to reorder them. Tick pages, then
-      Download, to save only the ticked pages.</p>
+      Download, to save only the ticked pages. Click a page to select it,
+      then use the keyboard: <kbd>R</kbd> rotate, <kbd>Del</kbd> delete,
+      <kbd>Ctrl</kbd>+<kbd>Z</kbd> undo.</p>
+    <p class="hint">Pages are numbered in output order — the badge on each
+      page is its position in the file you download.</p>
     <p class="privacy">No upload. No account. No tracking.
       Everything happens in this tab.</p>
   </aside>
 
   <section class="pages-panel">
     <div id="dropzone" class="dropzone">
-      <p class="dropzone-big">Drop PDFs here</p>
+      <p class="dropzone-big">Drop PDFs or images here</p>
       <p class="dropzone-small">or</p>
-      <button id="add-files-big" class="btn btn-primary">Choose PDF files</button>
-      <p class="dropzone-small">PDF files only. Nothing is uploaded.</p>
+      <button id="add-files-big" class="btn btn-primary">Choose files</button>
+      <p class="dropzone-small">PDF, PNG and JPG files. Nothing is uploaded.</p>
+    </div>
+    <div id="pages-toolbar" class="pages-toolbar" hidden>
+      <label class="zoom">Thumbnails
+        <input id="zoom" type="range" min="120" max="260" step="10" value="170" aria-label="Thumbnail size">
+      </label>
+      <button id="reverse-order" class="btn btn-ghost btn-small" title="Reverse the order of all pages">⇄ Reverse order</button>
+      <button id="select-odd" class="btn btn-ghost btn-small" title="Select pages 1, 3, 5, …">Select odd</button>
+      <button id="select-even" class="btn btn-ghost btn-small" title="Select pages 2, 4, 6, …">Select even</button>
+      <label class="blank-add">Blank page
+        <select id="blank-size" aria-label="Blank page size">
+          <option value="A4">A4</option>
+          <option value="Letter">Letter</option>
+          <option value="A5">A5</option>
+        </select>
+        <button id="add-blank" class="btn btn-ghost btn-small" title="Insert a blank page at the end">+ Insert</button>
+      </label>
     </div>
     <div id="page-grid" class="page-grid" aria-label="Pages"></div>
   </section>
@@ -53,7 +85,11 @@
   <span id="error" class="error" role="alert"></span>
 </footer>
 
-<input type="file" id="file-input" accept="application/pdf,.pdf" multiple hidden>
+<div id="drag-overlay" class="drag-overlay" hidden>
+  <p>Drop PDFs or images to add them</p>
+</div>
+
+<input type="file" id="file-input" accept="application/pdf,.pdf,image/png,image/jpeg,.png,.jpg,.jpeg" multiple hidden>
 
 <script src="vendor/pdf-lib.min.js"></script>
 <script src="vendor/pdf.min.js"></script>

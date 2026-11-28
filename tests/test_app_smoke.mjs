@@ -103,7 +103,7 @@ test("load a PDF, see 3 page cards, download builds a PDF", async () => {
   document.getElementById("download").click();
   await sleep(1500);
   assert.ok(clickedHref && clickedHref.startsWith("blob:"));
-  assert.equal(clickedName, "test-merged.pdf");
+  assert.equal(clickedName, "test.pdf");
   assert.match(document.getElementById("status").textContent, /Done — downloaded 2 pages/);
   dom.window.close();
 });
@@ -117,8 +117,8 @@ test("a non-PDF file is rejected with a clear error", async () => {
   Object.defineProperty(input, "files", { value: [file], configurable: true });
   input.dispatchEvent(new dom.window.Event("change", { bubbles: true }));
   await sleep(800);
-  // .txt is filtered out by the app (only .pdf accepted)
+  // .txt is filtered out by the app (only .pdf/.png/.jpg accepted)
   assert.equal(document.querySelectorAll(".page-card").length, 0);
-  assert.match(document.getElementById("error").textContent, /PDF files/);
+  assert.match(document.getElementById("error").textContent, /PDF, PNG or JPG/);
   dom.window.close();
 });
